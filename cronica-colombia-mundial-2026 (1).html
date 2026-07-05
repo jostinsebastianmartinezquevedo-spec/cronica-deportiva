@@ -150,7 +150,6 @@
 
   /* ===== Hero illustration ===== */
   .hero-art{
-    position:relative;
     margin:0 0 22px;
     border-radius:8px;
     overflow:hidden;
@@ -550,21 +549,6 @@
   .school-card .row:last-child{border-bottom:none;}
   .school-card .row span:first-child{color:#8592B8; font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase;}
   .school-card .row span:last-child{text-align:right; color:var(--cream);}
-  .credits-block{
-    margin-top:28px;
-    padding-top:26px;
-    border-top:1px solid rgba(255,255,255,0.12);
-  }
-  .credits-block ul{
-    margin:0;
-    padding-left:18px;
-    font-size:0.78rem;
-    line-height:1.85;
-    color:#AEB8DA;
-  }
-  .credits-block li{margin-bottom:8px;}
-  .credits-block b{color:var(--cream);}
-  .credits-block i{color:var(--gold); font-style:italic;}
   .fine{
     text-align:center;
     font-family:'JetBrains Mono', monospace;
@@ -575,55 +559,103 @@
     border-top:1px solid rgba(255,255,255,0.1);
   }
 
-  /* ===== Image replacement slots ===== */
-  .img-slot{
-    position:relative;
-  }
-  .img-slot .replaced-img{
-    display:none;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    position:absolute;
-    top:0; left:0;
-  }
-  .img-slot.has-photo .replaced-img{display:block;}
-  .img-slot.has-photo > svg{visibility:hidden;}
-  .img-controls{
-    position:absolute;
-    top:10px; right:10px;
-    z-index:5;
-    display:flex;
-    gap:6px;
-  }
-  .img-btn{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.62rem;
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    background:rgba(12,23,48,0.72);
-    color:var(--cream);
-    border:1px solid rgba(255,184,28,0.55);
-    border-radius:5px;
-    padding:6px 10px;
-    cursor:pointer;
-    backdrop-filter:blur(2px);
-    transition:background 0.2s ease, transform 0.15s ease;
-  }
-  .img-btn:hover{background:rgba(12,23,48,0.92); transform:translateY(-1px);}
-  .img-btn.remove{
-    display:none;
-    border-color:rgba(206,17,38,0.6);
-  }
-  .img-slot.has-photo .img-btn.remove{display:inline-block;}
-  .img-slot.has-photo .img-btn.add{display:none;}
-  .img-slot input[type="file"]{display:none;}
-
   @media (max-width:700px){
     .footer-grid{grid-template-columns:1fr;}
     .scoreboard{grid-template-columns:1fr; text-align:center;}
     .sb-score{justify-content:center;}
     .article p.lede::first-letter{font-size:2.6rem;}
+  }
+
+  /* ===== Importación de imágenes propias (quedan incrustadas al guardar el HTML) ===== */
+  .img-slot{position:relative;}
+  .img-slot .img-replaced{display:block; width:100%; object-fit:cover;}
+  #imgSlot-hero .img-replaced{aspect-ratio:1000 / 300;}
+  #imgSlot-col .img-replaced, #imgSlot-por .img-replaced, #imgSlot-cod .img-replaced, #imgSlot-uzb .img-replaced{aspect-ratio:400 / 200;}
+  .img-slot .img-upload-btn{
+    position:absolute;
+    right:10px; top:10px;
+    z-index:5;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(12,23,48,0.8);
+    color:var(--cream);
+    border:1px solid rgba(255,184,28,0.55);
+    border-radius:20px;
+    padding:6px 12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.6rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background 0.2s ease, transform 0.2s ease;
+    line-height:1;
+  }
+  .img-slot .img-upload-btn:hover{background:var(--gold-deep); color:var(--ink); transform:translateY(-1px);}
+  .img-slot .img-upload-btn input[type="file"]{
+    position:absolute;
+    width:1px; height:1px;
+    opacity:0;
+    overflow:hidden;
+    left:-9999px;
+  }
+  .img-slot .img-remove-btn{
+    position:absolute;
+    right:10px; top:44px;
+    z-index:5;
+    background:rgba(206,17,38,0.88);
+    color:#fff;
+    border:1px solid rgba(255,255,255,0.4);
+    border-radius:20px;
+    padding:5px 11px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.56rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    cursor:pointer;
+    display:none;
+  }
+  .img-slot.has-custom-img .img-remove-btn{display:block;}
+
+  .save-html-fab{
+    position:fixed;
+    right:20px; bottom:20px;
+    z-index:100;
+    background:var(--ink);
+    color:var(--cream);
+    border:2px solid var(--gold);
+    border-radius:30px;
+    padding:12px 20px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+    box-shadow:0 10px 26px -10px rgba(12,23,48,0.6);
+  }
+  .save-html-fab:hover{background:var(--gold-deep); color:var(--ink);}
+  .save-html-toast{
+    position:fixed;
+    right:20px; bottom:74px;
+    z-index:100;
+    background:var(--scoreboard);
+    color:var(--gold);
+    border:1px solid #2B3A66;
+    border-radius:8px;
+    padding:10px 16px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.66rem;
+    line-height:1.5;
+    max-width:280px;
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity 0.25s ease, transform 0.25s ease;
+    pointer-events:none;
+  }
+  .save-html-toast.show{opacity:1; transform:translateY(0);}
+
+  @media print{
+    .img-upload-btn, .img-remove-btn, .save-html-fab, .save-html-toast{display:none !important;}
   }
 </style>
 </head>
@@ -659,13 +691,13 @@
     <span>Crónica de una Ilusión Tricolor</span>
   </div>
 
-  <figure class="hero-art img-slot" id="slot-hero" aria-hidden="false">
-    <div class="img-controls">
-      <button type="button" class="img-btn add" onclick="document.getElementById('file-hero').click()">📷 Insertar imagen</button>
-      <button type="button" class="img-btn remove" onclick="clearSlotImage('hero')">✕ Quitar</button>
-    </div>
-    <input type="file" id="file-hero" accept="image/*" onchange="handleSlotImage(this,'hero')">
-    <img class="replaced-img" id="img-hero" alt="Imagen insertada por el usuario para la portada">
+  <figure class="hero-art" aria-hidden="false">
+    <div class="img-slot" id="imgSlot-hero">
+    <label class="img-upload-btn" title="Importar una foto real para esta ilustración">
+      📷 Cambiar imagen
+      <input type="file" accept="image/*" data-slot="hero">
+    </label>
+    <button type="button" class="img-remove-btn" data-slot="hero">Quitar foto</button>
     <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="heroArtTitle">
       <title id="heroArtTitle">Ilustración original de un estadio de fútbol de noche con hinchada y confeti tricolor</title>
       <defs>
@@ -725,6 +757,7 @@
         <rect x="360" y="70" width="6" height="10" fill="#F7F2E4" transform="rotate(-10 360 70)"/>
       </g>
     </svg>
+    </div>
     <figcaption>Ilustración original — Hard Rock Stadium, Miami. Colombia sella el liderato invicto del Grupo K.</figcaption>
   </figure>
 
@@ -788,13 +821,12 @@
     <div class="teams-grid">
       <div class="team-card">
         <div class="stripe col"></div>
-        <div class="tc-photo-wrap img-slot" id="slot-col">
-          <div class="img-controls">
-            <button type="button" class="img-btn add" onclick="document.getElementById('file-col').click()">📷 Insertar</button>
-            <button type="button" class="img-btn remove" onclick="clearSlotImage('col')">✕ Quitar</button>
-          </div>
-          <input type="file" id="file-col" accept="image/*" onchange="handleSlotImage(this,'col')">
-          <img class="replaced-img" id="img-col" alt="Imagen insertada por el usuario para Colombia">
+        <div class="tc-photo-wrap img-slot" id="imgSlot-col">
+          <label class="img-upload-btn" title="Importar una foto real de Colombia">
+            📷 Cambiar imagen
+            <input type="file" accept="image/*" data-slot="col">
+          </label>
+          <button type="button" class="img-remove-btn" data-slot="col">Quitar foto</button>
           <svg class="tc-photo" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración genérica de la alineación de Colombia">
             <defs>
               <linearGradient id="sky-col" x1="0" y1="0" x2="0" y2="1">
@@ -840,13 +872,12 @@
 
       <div class="team-card">
         <div class="stripe por"></div>
-        <div class="tc-photo-wrap img-slot" id="slot-por">
-          <div class="img-controls">
-            <button type="button" class="img-btn add" onclick="document.getElementById('file-por').click()">📷 Insertar</button>
-            <button type="button" class="img-btn remove" onclick="clearSlotImage('por')">✕ Quitar</button>
-          </div>
-          <input type="file" id="file-por" accept="image/*" onchange="handleSlotImage(this,'por')">
-          <img class="replaced-img" id="img-por" alt="Imagen insertada por el usuario para Portugal">
+        <div class="tc-photo-wrap img-slot" id="imgSlot-por">
+          <label class="img-upload-btn" title="Importar una foto real de Portugal">
+            📷 Cambiar imagen
+            <input type="file" accept="image/*" data-slot="por">
+          </label>
+          <button type="button" class="img-remove-btn" data-slot="por">Quitar foto</button>
           <svg class="tc-photo" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración genérica de la alineación de Portugal">
             <defs>
               <linearGradient id="sky-por" x1="0" y1="0" x2="0" y2="1">
@@ -892,13 +923,12 @@
 
       <div class="team-card">
         <div class="stripe cod"></div>
-        <div class="tc-photo-wrap img-slot" id="slot-cod">
-          <div class="img-controls">
-            <button type="button" class="img-btn add" onclick="document.getElementById('file-cod').click()">📷 Insertar</button>
-            <button type="button" class="img-btn remove" onclick="clearSlotImage('cod')">✕ Quitar</button>
-          </div>
-          <input type="file" id="file-cod" accept="image/*" onchange="handleSlotImage(this,'cod')">
-          <img class="replaced-img" id="img-cod" alt="Imagen insertada por el usuario para República Democrática del Congo">
+        <div class="tc-photo-wrap img-slot" id="imgSlot-cod">
+          <label class="img-upload-btn" title="Importar una foto real de RD Congo">
+            📷 Cambiar imagen
+            <input type="file" accept="image/*" data-slot="cod">
+          </label>
+          <button type="button" class="img-remove-btn" data-slot="cod">Quitar foto</button>
           <svg class="tc-photo" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración genérica de la alineación de República Democrática del Congo">
             <defs>
               <linearGradient id="sky-cod" x1="0" y1="0" x2="0" y2="1">
@@ -944,13 +974,12 @@
 
       <div class="team-card">
         <div class="stripe uzb"></div>
-        <div class="tc-photo-wrap img-slot" id="slot-uzb">
-          <div class="img-controls">
-            <button type="button" class="img-btn add" onclick="document.getElementById('file-uzb').click()">📷 Insertar</button>
-            <button type="button" class="img-btn remove" onclick="clearSlotImage('uzb')">✕ Quitar</button>
-          </div>
-          <input type="file" id="file-uzb" accept="image/*" onchange="handleSlotImage(this,'uzb')">
-          <img class="replaced-img" id="img-uzb" alt="Imagen insertada por el usuario para Uzbekistán">
+        <div class="tc-photo-wrap img-slot" id="imgSlot-uzb">
+          <label class="img-upload-btn" title="Importar una foto real de Uzbekistán">
+            📷 Cambiar imagen
+            <input type="file" accept="image/*" data-slot="uzb">
+          </label>
+          <button type="button" class="img-remove-btn" data-slot="uzb">Quitar foto</button>
           <svg class="tc-photo" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración genérica de la alineación de Uzbekistán">
             <defs>
               <linearGradient id="sky-uzb" x1="0" y1="0" x2="0" y2="1">
@@ -1073,43 +1102,14 @@
         </div>
       </div>
     </div>
-
-    <div class="credits-block">
-      <h3>Cibergrafía y créditos de imágenes</h3>
-      <ul>
-        <li><b>Fotografías del documento fuente (no reproducidas en esta versión web):</b> las fotografías de las selecciones y de la celebración de gol que aparecen en la crónica original en PDF están acreditadas a <i>FIFA vía Getty Images</i>, <i>Soccrates Images</i> y capturas de transmisión de <i>ESPN.com</i>. Son material con derechos de autor de estas agencias y medios, por lo que <b>no se reproducen de forma literal</b> en esta página web.</li>
-        <li><b>Reemplazo por ilustraciones originales:</b> en su lugar, se diseñaron ilustraciones vectoriales propias (siluetas genéricas de jugadores y escena de estadio) inspiradas en la disposición de esas fotografías, sin copiar su contenido visual ni representar a personas reales, para conservar la legalidad del sitio.</li>
-        <li><b>Escudos y banderas:</b> los emojis de bandera utilizados (🇨🇴 🇵🇹 🇨🇩 🇺🇿) pertenecen al estándar Unicode de caracteres, de uso libre, y no constituyen material gráfico con derechos reservados.</li>
-        <li><b>Tipografías:</b> Anton, Lora y JetBrains Mono, distribuidas por Google Fonts bajo licencia SIL Open Font License (uso libre, incluso educativo y comercial).</li>
-        <li>Si el docente o la institución requieren las fotografías originales para fines estrictamente educativos y de análisis (no de publicación), se recomienda consultarlas directamente en el PDF fuente o en los sitios de Getty Images, Soccrates Images y ESPN, citando la fuente correspondiente.</li>
-      </ul>
-    </div>
-
     <div class="fine">Trabajo elaborado con fines pedagógicos para la clase de Español · Colegio Próspero Pinzón IED · 2026</div>
   </div>
 </footer>
 
-<script>
-  function handleSlotImage(input, key){
-    var file = input.files && input.files[0];
-    if (!file) return;
-    var url = URL.createObjectURL(file);
-    var img = document.getElementById('img-' + key);
-    var slot = document.getElementById('slot-' + key);
-    img.src = url;
-    slot.classList.add('has-photo');
-  }
+<button type="button" class="save-html-fab" id="saveHtmlBtn">💾 Guardar cambios en el archivo</button>
+<div class="save-html-toast" id="saveHtmlToast"></div>
 
-  function clearSlotImage(key){
-    var img = document.getElementById('img-' + key);
-    var slot = document.getElementById('slot-' + key);
-    var input = document.getElementById('file-' + key);
-    if (img.src) { URL.revokeObjectURL(img.src); }
-    img.removeAttribute('src');
-    input.value = '';
-    slot.classList.remove('has-photo');
-  }
-</script>
+<script>
   (function(){
     var now = new Date();
     var formatter = new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -1122,6 +1122,142 @@
 
     var fine = document.querySelector('footer .fine');
     if (fine) fine.textContent = 'Trabajo elaborado con fines pedagógicos para la clase de Español · Colegio Próspero Pinzón IED · ' + now.getFullYear();
+  })();
+</script>
+
+<script>
+  // ===== Importación de imágenes propias =====
+  // Las fotos que se importan quedan incrustadas como base64 directamente
+  // dentro de las etiquetas <img> del documento. Por eso, al usar el botón
+  // "Guardar cambios en el archivo", se descarga un .html que ya contiene
+  // las fotos: ese es el archivo que debe subirse al repositorio de GitHub,
+  // así, al clonarlo o abrirlo de nuevo, las imágenes siguen ahí.
+  // Como respaldo adicional (por si se cierra sin guardar), también se
+  // guarda una copia temporal en el almacenamiento local del navegador.
+  (function(){
+    var SLOTS = ['hero', 'col', 'por', 'cod', 'uzb'];
+    var LS_PREFIX = 'wc2026_img_';
+
+    function resizeAndEncode(file, maxW, quality, cb){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var img = new Image();
+        img.onload = function(){
+          var scale = Math.min(1, maxW / img.width);
+          var w = Math.max(1, Math.round(img.width * scale));
+          var h = Math.max(1, Math.round(img.height * scale));
+          var canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var dataUrl;
+          try{
+            dataUrl = canvas.toDataURL('image/jpeg', quality);
+          }catch(err){
+            dataUrl = e.target.result;
+          }
+          cb(dataUrl);
+        };
+        img.onerror = function(){ cb(e.target.result); };
+        img.src = e.target.result;
+      };
+      reader.onerror = function(){ cb(null); };
+      reader.readAsDataURL(file);
+    }
+
+    function setCaption(container, text){
+      var cap = container.querySelector('.tc-photo-cap');
+      if(cap) cap.textContent = text;
+    }
+
+    function applyImage(slot, dataUrl, persist){
+      if(!dataUrl) return;
+      var container = document.getElementById('imgSlot-' + slot);
+      if(!container) return;
+      var svg = container.querySelector('svg');
+      if(svg){ svg.style.display = 'none'; }
+      var img = container.querySelector('img.img-replaced');
+      if(!img){
+        img = document.createElement('img');
+        img.className = 'img-replaced';
+        img.alt = 'Foto importada por el usuario';
+        container.appendChild(img);
+      }
+      img.src = dataUrl;
+      container.classList.add('has-custom-img');
+      setCaption(container, 'Foto importada');
+      if(persist !== false){
+        try{ localStorage.setItem(LS_PREFIX + slot, dataUrl); }catch(err){}
+        showToast('Imagen agregada. Haz clic en "Guardar cambios en el archivo" para incrustarla de forma permanente y luego súbela a tu repositorio de GitHub.');
+      }
+    }
+
+    function removeImage(slot){
+      var container = document.getElementById('imgSlot-' + slot);
+      if(!container) return;
+      var img = container.querySelector('img.img-replaced');
+      if(img) img.remove();
+      var svg = container.querySelector('svg');
+      if(svg) svg.style.display = '';
+      container.classList.remove('has-custom-img');
+      setCaption(container, 'Ilustración genérica');
+      try{ localStorage.removeItem(LS_PREFIX + slot); }catch(err){}
+    }
+
+    // Restaurar, al cargar la página, cualquier imagen guardada previamente
+    // en este navegador (respaldo temporal mientras se guarda el archivo).
+    SLOTS.forEach(function(slot){
+      try{
+        var stored = localStorage.getItem(LS_PREFIX + slot);
+        if(stored) applyImage(slot, stored, false);
+      }catch(err){}
+    });
+
+    document.querySelectorAll('input[type="file"][data-slot]').forEach(function(input){
+      input.addEventListener('change', function(){
+        var slot = input.getAttribute('data-slot');
+        var file = input.files && input.files[0];
+        if(!file) return;
+        var maxW = (slot === 'hero') ? 1000 : 600;
+        resizeAndEncode(file, maxW, 0.82, function(dataUrl){
+          applyImage(slot, dataUrl, true);
+        });
+        input.value = '';
+      });
+    });
+
+    document.querySelectorAll('.img-remove-btn[data-slot]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        removeImage(btn.getAttribute('data-slot'));
+      });
+    });
+
+    var toast = document.getElementById('saveHtmlToast');
+    var toastTimer = null;
+    function showToast(message){
+      if(!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      if(toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 6000);
+    }
+
+    var saveBtn = document.getElementById('saveHtmlBtn');
+    if(saveBtn){
+      saveBtn.addEventListener('click', function(){
+        var htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        var blob = new Blob([htmlContent], {type: 'text/html;charset=utf-8'});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'cronica-colombia-mundial-2026.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+        showToast('Archivo descargado con las imágenes incrustadas. Sube ese .html a tu repositorio de GitHub para respaldarlo.');
+      });
+    }
   })();
 </script>
 </body>
