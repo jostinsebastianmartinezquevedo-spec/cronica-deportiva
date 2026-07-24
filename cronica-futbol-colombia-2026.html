@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El fútbol como espejo de lo que somos — Crónica Norteamérica 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-cancha: #0e2a1c;
+    --verde-cancha-2: #123420;
+    --crema: #f5efdf;
+    --crema-2: #ece2c8;
+    --oro: #e7b23d;
+    --oro-2: #f4cf6e;
+    --azul-noche: #1c3b52;
+    --rojo-tinta: #a83a2c;
+    --tinta: #191712;
+    --linea: rgba(25,23,18,0.15);
+    --sombra: rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--crema);
+    color: var(--tinta);
+    font-family: 'Source Serif 4', serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3, .display{
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+
+  .mono{
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  a{ color: inherit; }
+
+  /* ---------- Textura de fondo tipo cancha ---------- */
+  .textura-cancha{
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 140px);
+  }
+
+  /* ---------- MASTHEAD ---------- */
+  header.masthead{
+    position: relative;
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    color: var(--crema);
+    overflow:hidden;
+    background: var(--verde-cancha);
+  }
+  header.masthead .foto-fondo{
+    position:absolute; inset:0;
+    background-image: url('https://images.pexels.com/photos/15847154/pexels-photo-15847154.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    background-size: cover;
+    background-position: center 30%;
+    filter: saturate(1.05);
+  }
+  header.masthead .velo{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(14,42,28,0.35) 0%, rgba(14,42,28,0.55) 40%, rgba(10,20,14,0.96) 92%),
+      linear-gradient(90deg, rgba(10,20,14,0.55), transparent 45%, transparent 60%, rgba(10,20,14,0.55));
+  }
+
+  .kicker-bar{
+    position:relative; z-index:2;
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 22px clamp(20px,5vw,64px) 0;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--oro-2);
+    border-bottom: 1px solid rgba(231,178,61,0.35);
+    padding-bottom: 14px;
+  }
+  .kicker-bar span:nth-child(2){ color: var(--crema); opacity:0.85; text-align:right;}
+
+  .masthead-contenido{
+    position:relative; z-index:2;
+    padding: 40px clamp(20px,5vw,64px) 56px;
+    max-width: 1180px;
+  }
+  .rotulo{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.25em;
+    color: var(--oro);
+    margin-bottom: 18px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .rotulo::before{
+    content:"";
+    width:34px; height:2px; background: var(--oro);
+    display:inline-block;
+  }
+  h1.titulo-principal{
+    font-size: clamp(2.6rem, 7vw, 5.8rem);
+    margin: 0 0 22px;
+    color: var(--crema);
+    text-shadow: 0 6px 30px rgba(0,0,0,0.4);
+  }
+  h1.titulo-principal em{
+    font-style:normal;
+    color: var(--oro-2);
+  }
+  .subtitulo{
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
+    max-width: 46ch;
+    color: var(--crema-2);
+    margin: 0 0 34px;
+  }
+
+  .ficha-autor{
+    display:flex; flex-wrap:wrap; gap: 28px 44px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    color: var(--crema-2);
+    border-top: 1px dashed rgba(245,239,223,0.3);
+    padding-top: 20px;
+  }
+  .ficha-autor div span{ display:block; color: var(--oro-2); letter-spacing:0.08em; font-size:0.68rem; margin-bottom:4px; text-transform:uppercase;}
+
+  /* ---------- MARCADOR / nav de tres lecturas ---------- */
+  nav.marcador{
+    background: var(--tinta);
+    border-top: 3px solid var(--oro);
+    border-bottom: 3px solid var(--oro);
+  }
+  .marcador-inner{
+    max-width: 1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .marcador-inner a{
+    text-decoration:none;
+    color: var(--crema-2);
+    padding: 22px 18px;
+    text-align:center;
+    position:relative;
+    border-right: 1px solid rgba(245,239,223,0.12);
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .marcador-inner a:last-child{ border-right:none; }
+  .marcador-inner a:hover{ background: rgba(231,178,61,0.1); color: var(--oro-2); }
+  .marcador-inner .num{
+    font-family:'JetBrains Mono', monospace;
+    display:block;
+    font-size:0.72rem;
+    letter-spacing:0.2em;
+    color: var(--oro);
+    margin-bottom: 6px;
+  }
+  .marcador-inner .lbl{
+    font-family:'Anton', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    letter-spacing: 0.03em;
+  }
+
+  /* ---------- CONTENIDO / ARTÍCULO ---------- */
+  main{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 72px 22px 40px;
+  }
+
+  .lead{
+    font-size: clamp(1.12rem, 2vw, 1.32rem);
+    color: #2a2620;
+  }
+  .lead::first-letter{
+    font-family:'Anton', sans-serif;
+    font-size: 4.6rem;
+    line-height: 0.75;
+    float:left;
+    padding: 6px 12px 0 0;
+    color: var(--rojo-tinta);
+  }
+
+  section.capitulo{
+    margin-top: 76px;
+    scroll-margin-top: 90px;
+  }
+
+  .cabecera-capitulo{
+    display:flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 22px;
+    border-bottom: 2px solid var(--tinta);
+    padding-bottom: 10px;
+  }
+  .cabecera-capitulo .indice{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--rojo-tinta);
+    letter-spacing: 0.1em;
+  }
+  .cabecera-capitulo h2{
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    margin:0;
+  }
+
+  section.capitulo p{
+    font-size: 1.08rem;
+    color: #232019;
+  }
+  section.capitulo p + p{ margin-top: 18px; }
+
+  strong.marca{ color: var(--rojo-tinta); }
+
+  blockquote.destacado{
+    font-family:'Anton', sans-serif;
+    text-transform:none;
+    font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+    line-height: 1.25;
+    color: var(--azul-noche);
+    border-left: 5px solid var(--oro);
+    padding: 6px 0 6px 26px;
+    margin: 34px 0;
+  }
+  blockquote.destacado span{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    color: var(--rojo-tinta);
+    margin-top: 10px;
+  }
+
+  figure.foto{
+    margin: 40px -22px;
+    position:relative;
+  }
+  figure.foto img{
+    width:100%;
+    display:block;
+    max-height: 460px;
+    object-fit: cover;
+    filter: saturate(1.05) contrast(1.02);
+  }
+  figure.foto.ilustracion{
+    background: var(--verde-cancha);
+    padding-top: 4px;
+  }
+  figure.foto svg{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+  figure.foto figcaption{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: #5a5648;
+    padding: 10px 22px 0;
+  }
+
+  /* ---------- Tabla Grupo K ---------- */
+  .grupo-k{
+    margin: 34px 0;
+    background: var(--verde-cancha-2);
+    color: var(--crema);
+    border-radius: 4px;
+    overflow:hidden;
+    box-shadow: 0 14px 34px -18px rgba(0,0,0,0.5);
+  }
+  .grupo-k header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding: 14px 20px;
+    background: var(--verde-cancha);
+    border-bottom: 2px solid var(--oro);
+  }
+  .grupo-k header .t1{ font-family:'Anton',sans-serif; font-size:1.05rem; letter-spacing:0.04em; color: var(--oro-2);}
+  .grupo-k header .t2{ font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.12em; color: var(--crema-2);}
+  .grupo-k ul{ list-style:none; margin:0; padding: 6px 0; }
+  .grupo-k li{
+    display:flex; justify-content:space-between;
+    padding: 13px 20px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(245,239,223,0.08);
+  }
+  .grupo-k li:last-child{ border-bottom:none; }
+  .grupo-k li.destaca{ background: rgba(231,178,61,0.12); }
+  .grupo-k li .pais{ display:flex; align-items:center; gap:12px; }
+  .grupo-k li .tag{
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    color: var(--oro-2);
+    border:1px solid rgba(231,178,61,0.5);
+    border-radius: 20px;
+    padding: 2px 9px;
+  }
+
+  /* ---------- Conclusión ---------- */
+  .cierre{
+    margin-top: 90px;
+    padding: 54px clamp(24px,6vw,64px);
+    margin-left: -22px; margin-right:-22px;
+    background: var(--tinta);
+    color: var(--crema);
+    position:relative;
+    overflow:hidden;
+  }
+  .cierre::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: url('https://images.pexels.com/photos/31160095/pexels-photo-31160095.jpeg?auto=compress&cs=tinysrgb&w=1400');
+    background-size:cover; background-position:center;
+    opacity: 0.22;
+  }
+  .cierre-inner{ position:relative; z-index:2; max-width: 760px; }
+  .cierre .rotulo{ color: var(--oro-2); }
+  .cierre p{ font-size: 1.1rem; color: var(--crema-2); }
+  .cierre .frase-final{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    color: var(--oro-2);
+    line-height: 1.15;
+    margin-top: 26px;
+    border-top: 1px dashed rgba(245,239,223,0.3);
+    padding-top: 24px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background: var(--verde-cancha);
+    color: var(--crema-2);
+    text-align:center;
+    padding: 34px 20px 40px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+  footer strong{ color: var(--oro-2); display:block; margin-bottom:6px; font-size:0.8rem; letter-spacing:0.12em;}
+
+  /* ---------- Animación al revelar ---------- */
+  .revela{
+    opacity:0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .revela.visto{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .revela{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  @media (max-width: 720px){
+    .marcador-inner{ grid-template-columns: 1fr; }
+    .marcador-inner a{ border-right:none; border-bottom: 1px solid rgba(245,239,223,0.12); }
+    figure.foto{ margin-left:-16px; margin-right:-16px; }
+    main{ padding-left:16px; padding-right:16px; }
+    .cierre{ margin-left:-16px; margin-right:-16px; }
+    .ficha-autor{ gap: 16px 28px; }
+  }
+
+  /* foco visible accesible */
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--oro);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="foto-fondo" role="img" aria-label="Bandera de Colombia ondeando sobre el horizonte de Cartagena"></div>
+  <div class="velo"></div>
+
+  <div class="kicker-bar">
+    <span>Crónica deportiva · Norteamérica 2026</span>
+    <span>Líder del Grupo K → Eliminada en octavos ante Suiza</span>
+  </div>
+
+  <div class="masthead-contenido">
+    <div class="rotulo">
+      <svg class="icono-balon" viewBox="0 0 60 60" width="30" height="30" aria-hidden="true">
+        <circle cx="30" cy="30" r="26" fill="none" stroke="#e7b23d" stroke-width="2"/>
+        <polygon points="30,14 40,21 36,32 24,32 20,21" fill="#e7b23d"/>
+        <path d="M30,14 L30,4 M40,21 L50,15 M36,32 L44,42 M24,32 L16,42 M20,21 L10,15" stroke="#e7b23d" stroke-width="2" fill="none"/>
+      </svg>
+      Proyecto de síntesis — Lengua Castellana
+    </div>
+    <h1 class="titulo-principal">El fútbol como<br>espejo de <em>lo que somos</em></h1>
+    <p class="subtitulo">Más allá de 90 minutos: de la fase de grupos a la eliminación en penales ante Suiza, cómo el Mundial de Norteamérica 2026 nos habla de lo social, lo político y lo cultural.</p>
+
+    <div class="ficha-autor">
+      <div><span>Autor</span>Jostin Santiago Martínez Quevedo</div>
+      <div><span>Curso</span>Grado 11°</div>
+      <div><span>Asignatura</span>Lengua Castellana / Español</div>
+      <div><span>Proyecto</span>Participación Ciudadana y Deporte</div>
+    </div>
+  </div>
+</header>
+
+<nav class="marcador" aria-label="Cuatro lecturas de la crónica">
+  <div class="marcador-inner">
+    <a href="#social"><span class="num">01 · Tribuna</span><span class="lbl">Lo social</span></a>
+    <a href="#politico"><span class="num">02 · Vitrina</span><span class="lbl">Lo político</span></a>
+    <a href="#cultural"><span class="num">03 · Identidad</span><span class="lbl">Lo cultural</span></a>
+    <a href="#camino"><span class="num">04 · Bitácora</span><span class="lbl">El camino</span></a>
+  </div>
+</nav>
+
+<main>
+
+  <p class="lead revela">
+    Pararnos a hablar de la Selección Colombia en este Mundial de Norteamérica 2026 y quedarnos solo con el 1-0 contra el Congo, el golazo de Daniel Muñoz o el empate contra la Portugal de Cristiano Ronaldo sería dejar el cuento a la mitad. Como estudiantes de 11°, que ya estamos a nada de graduarnos, salir del colegio y comernos el mundo, vale la pena mirar este Mundial con lupa y ver cómo se cruza con nuestra cultura, la política y la forma en que vivimos el día a día.
+  </p>
+
+  <section class="capitulo revela" id="social">
+    <div class="cabecera-capitulo">
+      <span class="indice">01</span>
+      <h2>Lo social</h2>
+    </div>
+    <p>Para empezar, en lo social, la Selección es una locura. En un país donde a veces nos agarramos por todo y vivimos re divididos, la camiseta amarilla logra lo que nadie más puede: <strong class="marca">juntarnos a todos a gritar un gol</strong>. Ver a la gente en la calle, en los barrios y a los colombianos que están afuera llenando los estadios en México o Miami para alentar al equipo invicto en el Grupo K da un orgullo tremendo.</p>
+
+    <figure class="foto">
+      <img src="https://images.pexels.com/photos/34649361/pexels-photo-34649361.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Estadio lleno de aficionados celebrando durante un partido de fútbol" loading="lazy">
+      <figcaption>Imagen de referencia — ambiente de tribuna en un estadio durante un partido de fútbol.</figcaption>
+    </figure>
+
+    <p>Pero ojo, tampoco podemos ser ingenuos: a veces el fútbol se vuelve como ese "anestésico" que nos hace olvidar por un rato que las cosas en el país están duras con el tema del trabajo, la seguridad o las oportunidades para estudiar.</p>
+
+    <blockquote class="destacado">La camiseta amarilla logra lo que nadie más puede: juntarnos a todos a gritar un gol.
+      <span>— pero el fútbol no debe ser anestesia para lo que aún falta por resolver</span>
+    </blockquote>
+  </section>
+
+  <section class="capitulo revela" id="politico">
+    <div class="cabecera-capitulo">
+      <span class="indice">02</span>
+      <h2>Lo político</h2>
+    </div>
+    <p>En lo político, este Mundial también nos deja pensando bastante. Que Colombia haya clasificado jugando tan bien en las Eliminatorias demuestra que <strong class="marca">cuando hay un proceso serio, con disciplina y buen liderazgo, los resultados llegan</strong>. Además, ver en nuestro mismo grupo a países como la República Democrática del Congo o al debutante Uzbekistán te hace dar cuenta de que el fútbol es la vitrina que tienen muchos países que casi no suenan en el mapa para hacerse escuchar ante el mundo entero.</p>
+
+    <div class="grupo-k">
+      <header>
+        <span class="t1">Grupo K</span>
+        <span class="t2">Norteamérica 2026</span>
+      </header>
+      <ul>
+        <li class="destaca"><span class="pais">Colombia <span class="tag">líder de grupo</span></span><span>7 puntos</span></li>
+        <li><span class="pais">Portugal</span><span>Empate ante Cristiano Ronaldo</span></li>
+        <li><span class="pais">R. D. del Congo</span><span>Rival de estreno · 1-0</span></li>
+        <li><span class="pais">Uzbekistán</span><span>Debutante mundialista</span></li>
+      </ul>
+    </div>
+
+    <p>Ese contraste dentro de un mismo grupo —una selección histórica como Portugal junto a un debutante como Uzbekistán— recuerda que el Mundial también es una plataforma de visibilidad para países que rara vez ocupan un lugar en la conversación global.</p>
+  </section>
+
+  <section class="capitulo revela" id="cultural">
+    <div class="cabecera-capitulo">
+      <span class="indice">03</span>
+      <h2>Lo cultural</h2>
+    </div>
+    <p>Y en lo cultural, este equipo es pura identidad colombiana. Jugadores como "Lucho" Díaz o James Rodríguez representan el talento que sale de los barrios y pueblos de nuestro país. Son la prueba viviente de que <strong class="marca">el deporte y la cultura son de las pocas salidas reales</strong> que tenemos muchos jóvenes para salir adelante y cambiar nuestra historia.</p>
+
+    <figure class="foto">
+      <img src="https://images.pexels.com/photos/34649364/pexels-photo-34649364.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Multitud vibrante celebrando en un estadio de fútbol" loading="lazy">
+      <figcaption>Imagen de referencia — la fiesta en las tribunas acompaña cada partido.</figcaption>
+    </figure>
+
+    <p>La fiesta en las tribunas, la música y las ganas que le mete la Selección reflejan esa sabrosura y esa berraquera que nos caracteriza a los colombianos.</p>
+
+    <blockquote class="destacado">Sabrosura y berraquera: la fiesta en las tribunas también es identidad.
+      <span>— el estadio como extensión del barrio y del pueblo</span>
+    </blockquote>
+  </section>
+
+  <section class="capitulo revela" id="camino">
+    <div class="cabecera-capitulo">
+      <span class="indice">04</span>
+      <h2>El camino: de la fase de grupos a la eliminación</h2>
+    </div>
+
+    <p>Para no quedarnos solo con el resultado final, vale la pena repasar el camino completo que recorrió la Tricolor, porque ahí está buena parte de lo que veníamos contando. Este fue el trayecto, partido a partido, hasta que se apagó el sueño:</p>
+
+    <figure class="foto ilustracion" aria-label="Ilustración del recorrido de Colombia en el Mundial 2026">
+      <svg viewBox="0 0 1200 260" width="100%" role="img" aria-labelledby="titulo-ruta desc-ruta">
+        <title id="titulo-ruta">Ruta de Colombia en el Mundial 2026</title>
+        <desc id="desc-ruta">Cinco partidos representados como nodos conectados: victoria 3-1 ante Uzbekistán, victoria 1-0 ante RD Congo, empate 0-0 ante Portugal, victoria 1-0 ante Ghana y eliminación 0-0 (4-3 en penales) ante Suiza.</desc>
+        <rect x="0" y="0" width="1200" height="260" fill="#0e2a1c"/>
+        <line x1="90" y1="140" x2="1110" y2="140" stroke="#f5efdf" stroke-opacity="0.25" stroke-width="2" stroke-dasharray="2 10"/>
+
+        <!-- Uzbekistán -->
+        <g transform="translate(140,140)">
+          <line x1="0" y1="0" x2="0" y2="-46" stroke="#e7b23d" stroke-opacity="0.6" stroke-width="2"/>
+          <circle r="30" fill="#e7b23d"/>
+          <text y="6" text-anchor="middle" font-family="Anton" font-size="20" fill="#191712">3-1</text>
+          <text y="-58" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#f5efdf">Uzbekistán</text>
+          <text y="-40" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#f4cf6e" letter-spacing="1">FECHA 1 · VICTORIA</text>
+        </g>
+
+        <!-- RD Congo -->
+        <g transform="translate(380,140)">
+          <line x1="0" y1="0" x2="0" y2="46" stroke="#e7b23d" stroke-opacity="0.6" stroke-width="2"/>
+          <circle r="30" fill="#e7b23d"/>
+          <text y="6" text-anchor="middle" font-family="Anton" font-size="20" fill="#191712">1-0</text>
+          <text y="66" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#f5efdf">RD Congo</text>
+          <text y="82" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#f4cf6e" letter-spacing="1">FECHA 2 · VICTORIA</text>
+        </g>
+
+        <!-- Portugal -->
+        <g transform="translate(620,140)">
+          <line x1="0" y1="0" x2="0" y2="-46" stroke="#1c3b52" stroke-opacity="0.9" stroke-width="2"/>
+          <circle r="30" fill="#1c3b52"/>
+          <text y="6" text-anchor="middle" font-family="Anton" font-size="20" fill="#f5efdf">0-0</text>
+          <text y="-58" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#f5efdf">Portugal</text>
+          <text y="-40" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#f4cf6e" letter-spacing="1">FECHA 3 · EMPATE · 1° DE GRUPO</text>
+        </g>
+
+        <!-- Ghana -->
+        <g transform="translate(860,140)">
+          <line x1="0" y1="0" x2="0" y2="46" stroke="#e7b23d" stroke-opacity="0.6" stroke-width="2"/>
+          <circle r="30" fill="#e7b23d"/>
+          <text y="6" text-anchor="middle" font-family="Anton" font-size="20" fill="#191712">1-0</text>
+          <text y="66" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#f5efdf">Ghana</text>
+          <text y="82" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#f4cf6e" letter-spacing="1">DIECISEISAVOS · VICTORIA</text>
+        </g>
+
+        <!-- Suiza -->
+        <g transform="translate(1080,140)">
+          <line x1="0" y1="0" x2="0" y2="-46" stroke="#a83a2c" stroke-opacity="0.9" stroke-width="2"/>
+          <circle r="32" fill="#a83a2c" stroke="#f5efdf" stroke-width="2" stroke-dasharray="4 3"/>
+          <text y="6" text-anchor="middle" font-family="Anton" font-size="18" fill="#f5efdf">0-0</text>
+          <text y="-60" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="#f5efdf">Suiza</text>
+          <text y="-42" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#f4cf6e" letter-spacing="1">OCTAVOS · PENALES 4-3</text>
+        </g>
+      </svg>
+      <figcaption>Ilustración propia — ruta de Colombia en el Grupo K y la fase eliminatoria del Mundial 2026.</figcaption>
+    </figure>
+
+    <p>En la fase de grupos, Colombia fue un equipo sólido: goleó 3-1 a Uzbekistán con tantos de Daniel Muñoz, Luis Díaz y Jáminton Campaz; después llegó ese 1-0 sufrido contra la República Democrática del Congo que ya mencionamos, y cerró con el empate 0-0 ante la Portugal de Cristiano Ronaldo, resultado que le entregó el primer lugar del Grupo K con siete puntos, algo que la Tricolor solo había logrado antes en 2014 y 2018.</p>
+
+    <p>Ya en la fase de eliminación directa, en dieciseisavos de final, Colombia volvió a mostrar carácter: le ganó 1-0 a Ghana en Kansas City gracias a un golazo de Jhon Arias, sin dejarle un solo remate al arco a los africanos en todo el partido. Con ese resultado llegó a los octavos de final, donde el rival fue Suiza, en el BC Place de Vancouver.</p>
+
+    <p>Ahí se acabó el sueño. Colombia empató 0-0 en el tiempo reglamentario y en el alargue, y todo se definió desde el punto penal.</p>
+
+    <figure class="foto ilustracion" aria-label="Ilustración del marcador final de la tanda de penales">
+      <svg viewBox="0 0 1200 220" width="100%" role="img" aria-labelledby="titulo-penales desc-penales">
+        <title id="titulo-penales">Marcador final de la tanda de penales</title>
+        <desc id="desc-penales">Colombia 3, Suiza 4 en la tanda de penales de octavos de final.</desc>
+        <rect x="0" y="0" width="1200" height="220" fill="#191712"/>
+        <line x1="600" y1="30" x2="600" y2="190" stroke="#e7b23d" stroke-width="2" stroke-opacity="0.5"/>
+
+        <text x="300" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="2" fill="#f4cf6e">COLOMBIA</text>
+        <text x="300" y="150" text-anchor="middle" font-family="Anton" font-size="90" fill="#e7b23d">3</text>
+
+        <text x="900" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="2" fill="#f4cf6e">SUIZA</text>
+        <text x="900" y="150" text-anchor="middle" font-family="Anton" font-size="90" fill="#f5efdf">4</text>
+
+        <text x="600" y="205" text-anchor="middle" font-family="JetBrains Mono" font-size="11" letter-spacing="1" fill="#a83a2c">TANDA DE PENALES · OCTAVOS DE FINAL · VANCOUVER</text>
+      </svg>
+      <figcaption>Ilustración propia — anotó Juan Fernando Quintero; erraron Dávinson Sánchez y Jáminton Campaz.</figcaption>
+    </figure>
+
+    <p>El profe Néstor Lorenzo lo dijo después del partido: lo único que le faltó al equipo fue "hacer gol". Ver llorar a "Lucho" Díaz en la cancha de Vancouver duele, pero también confirma algo: esta Selección se jugó cada partido con el alma, y eso no se puede discutir. Colombia no logró igualar su mejor actuación histórica —los cuartos de final de Brasil 2014—, pero sí demostró, otra vez, que cuando hay proceso, disciplina y liderazgo, como decíamos en la parte política de este texto, los resultados llegan, aunque esta vez la eliminación llegara por la vía más dolorosa: los penaltis.</p>
+
+    <blockquote class="destacado">Nos faltó hacer gol, pero no nos faltó berraquera.
+      <span>— la eliminación también es parte del espejo</span>
+    </blockquote>
+  </section>
+
+  <section class="capitulo revela" aria-label="Conclusión de la crónica">
+    <div class="cabecera-capitulo">
+      <span class="indice">05</span>
+      <h2>Conclusión</h2>
+    </div>
+    <p>En conclusión, ver a nuestra Selección Colombia pararse firme ante los grandes del mundo, liderar su grupo y jugarse la clasificación a cuartos de final palmo a palmo ante Suiza, nos llena de un orgullo gigante que no cabe en el pecho. Más allá del resultado final, sentir esta camiseta nos hace inflar el pecho de la emoción y nos demuestra que, cuando le metemos berraquera, unión y corazón, los colombianos estamos para grandes cosas, ganemos o perdamos en la tanda de penales.</p>
+  </section>
+
+</main>
+
+<div class="cierre revela">
+  <div class="cierre-inner">
+    <div class="rotulo">Cierre de crónica</div>
+    <p>La eliminación en penales ante Suiza duele, pero este recorrido —desde el liderato invicto del Grupo K hasta los octavos de final en Vancouver— ya dejó una certeza que no depende del marcador.</p>
+    <p class="frase-final">¡Esta Selección ya nos hizo sentir inmensamente orgullosos de nuestra patria!</p>
+  </div>
+</div>
+
+<footer>
+  <strong>El fútbol como espejo de lo que somos</strong>
+  Jostin Santiago Martínez Quevedo · Grado 11° · Lengua Castellana / Español<br>
+  Proyecto de Síntesis: Participación Ciudadana y Deporte · Norteamérica 2026
+</footer>
+
+<script>
+  const objetivos = document.querySelectorAll('.revela');
+  if('IntersectionObserver' in window){
+    const obs = new IntersectionObserver((entradas)=>{
+      entradas.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visto');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    objetivos.forEach(el=>obs.observe(el));
+  } else {
+    objetivos.forEach(el=>el.classList.add('visto'));
+  }
+</script>
+
+</body>
+</html>
